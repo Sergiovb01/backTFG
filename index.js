@@ -32,3 +32,4 @@ app.get('/*path', (req, res) => {
 app.listen(process.env.PORT, () => { //coger el puerto de las variables de entorno
     console.log(`Servidor corriendo en puerto ${process.env.PORT}`);
 });
+
