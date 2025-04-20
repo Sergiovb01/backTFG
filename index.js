@@ -12,7 +12,7 @@ const app = express();
 dbConection()
 
 //CORS
-app.use(cors())
+app.use(cors())//Esto permite que cualquier origen (frontend) haga peticiones a tu API
 
 //Directorio Público 
 app.use(express.static('public')) ;//Middleware (operación que se ejecuta cuando alguien hace una petición en mi servidor )
