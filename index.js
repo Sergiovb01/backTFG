@@ -23,6 +23,7 @@ app.use(express.json());
 //Rutas
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/events', require('./routes/events'));
+app.use('/api/perfil', require('./routes/perfil'));
 
 app.get('/*path', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/index.html'));
