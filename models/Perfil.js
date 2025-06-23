@@ -40,19 +40,18 @@ const PerfilSchema = Schema({
     required: true
   },
 
+  portafolio: [
+    {
+      url: String,         
+      tipo: String,   
+           
+    }
+  ],
+
   photo: {
     type: String,
   },
 
-  seguidores: [{
-    type: Schema.Types.ObjectId,
-    ref: 'PerfilUsuario'
-  }],
-
-  seguidos: [{
-    type: Schema.Types.ObjectId,
-    ref: 'PerfilUsuario'
-  }]
 });
 
 module.exports = model('PerfilUsuario', PerfilSchema);

@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { check, validationResult } = require('express-validator');
-const { crearPerfil, getPerfil, getPerfiles } = require('../controllers/perfil');
+const { crearPerfil, getPerfil, getPerfiles, actualizarPerfil, getPerfilByFilter, obtenerPerfilPorId, obtenerPerfilUsuarioPorId} = require('../controllers/perfil');
 const { validarJWT } = require('../middlewares/validar-jwt');
 const { validarCampos } = require('../middlewares/validar-campos');
 
@@ -14,7 +14,15 @@ router.use(validarJWT);
 router.get('/mi-perfil', getPerfil);
 
 //Obtener perfiles
-router.get('/', getPerfiles);
+router.get('/perfiles', getPerfiles);
+//Obtener perfiles
+router.get('/perfiles/Filter', getPerfilByFilter);
+
+// Obtener perfil por ID
+router.get('/:id', obtenerPerfilPorId);
+
+//Obtener perfil de usuario por ID
+router.get('/usuario/:id', obtenerPerfilUsuarioPorId);
 
 // Crear nuevo perfil
 router.post(
@@ -38,6 +46,22 @@ router.post(
     next();
   },
   crearPerfil
+);
+
+router.put(
+  '/',
+  [
+    check('softwares').optional().isArray({ min: 1 }).withMessage('El campo softwares debe ser un array con al menos un elemento'),
+    check('skills').optional().isArray({ min: 1 }).withMessage('El campo skills debe ser un array con al menos un elemento'),
+    check('country').optional().not().isEmpty().withMessage('El país es obligatorio'),
+    check('city').optional().not().isEmpty().withMessage('La ciudad es obligatoria'),
+    check('about').optional().not().isEmpty().withMessage('La descripción es obligatoria'),
+    check('socialMedia.*.account').optional().isString().withMessage('Cada red social debe tener un nombre de cuenta válido'),
+    // check('photo').optional().isURL().withMessage('La URL de la foto es obligatoria y debe ser válida'),
+
+    validarCampos
+  ],
+  actualizarPerfil
 );
 
 module.exports = router;

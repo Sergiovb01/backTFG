@@ -24,6 +24,10 @@ app.use(express.json());
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/events', require('./routes/events'));
 app.use('/api/perfil', require('./routes/perfil'));
+app.use('/api/publicaciones', require('./routes/publicaciones'));
+app.use('/api/postulaciones', require('./routes/postulacion'));
+app.use('/api/usuarios', require('./routes/usuarios'));
+
 
 app.get('/*path', (req, res) => {
     res.sendFile(path.join(__dirname, 'public/index.html'));
