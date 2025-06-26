@@ -228,6 +228,36 @@ const getPublicacionesPorUsuario = async (req, res) => {
   }
 };
 
+// Cambiar el estado de una publicación a 'cerrada'
+const cerrarPublicacion = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const publicacion = await Publicacion.findById(id);
+
+    if (!publicacion) {
+      return res.status(404).json({
+        ok: false,
+        msg: 'Publicación no encontrada'
+      });
+    }
+
+    publicacion.estado = 'cerrada';
+    await publicacion.save();
+
+    res.json({
+      ok: true,
+      msg: 'Publicación cerrada exitosamente',
+      publicacion
+    });
+  } catch (error) {
+    console.error('Error al cerrar publicación:', error);
+    res.status(500).json({
+      ok: false,
+      msg: 'Error al cerrar la publicación'
+    });
+  }
+};
 
 module.exports = {
   crearPublicacion,
@@ -236,5 +266,6 @@ module.exports = {
   obtenerMisPublicaciones,
   actulizarPublicacion,
   getPublicacionByFilter,
-  getPublicacionesPorUsuario
+  getPublicacionesPorUsuario,
+  cerrarPublicacion
 };

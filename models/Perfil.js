@@ -40,13 +40,12 @@ const PerfilSchema = Schema({
     required: true
   },
 
-  portafolio: [
-    {
-      url: String,         
-      tipo: String,   
-           
-    }
-  ],
+ portafolio: [
+  {
+    url: { type: String, required: true },
+    tipo: { type: String, required: true }
+  }
+],
 
   photo: {
     type: String,

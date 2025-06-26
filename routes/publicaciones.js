@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { check, validationResult } = require('express-validator');
-const { crearPublicacion, obtenerPublicaciones, obtenerPublicacionPorId, obtenerMisPublicaciones, actulizarPublicacion, getPublicacionByFilter, getPublicacionesPorUsuario } = require('../controllers/publicacion');
+const { crearPublicacion, obtenerPublicaciones, obtenerPublicacionPorId, obtenerMisPublicaciones, actulizarPublicacion, getPublicacionByFilter, getPublicacionesPorUsuario, cerrarPublicacion } = require('../controllers/publicacion');
 const { validarJWT } = require('../middlewares/validar-jwt');
 const { validarCampos } = require('../middlewares/validar-campos');
 
@@ -37,6 +37,8 @@ router.post(
   ],
   crearPublicacion
 );
+// Cerrar una publicación por ID
+router.put('/cerrar/:id', cerrarPublicacion);
 
 //Actualizar una publicación por ID
 router.put('/:id',
@@ -48,5 +50,7 @@ router.put('/:id',
     check('software').isArray({ min: 1 }).withMessage('Debes incluir al menos un software'),
     validarCampos
   ], actulizarPublicacion);
+
+
 
 module.exports = router;
